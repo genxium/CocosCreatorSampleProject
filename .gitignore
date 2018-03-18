@@ -1,0 +1,171 @@
+library/
+temp/
+local/
+
+#/////////////////////////////////////////////////////////////////////////////
+# Logs and databases
+#/////////////////////////////////////////////////////////////////////////////
+
+*.log
+*.sql
+*.sqlite
+
+#/////////////////////////////////////////////////////////////////////////////
+# files for debugger
+#/////////////////////////////////////////////////////////////////////////////
+
+*.sln
+*.csproj
+*.pidb
+*.unityproj
+*.suo
+
+#/////////////////////////////////////////////////////////////////////////////
+# OS generated files
+#/////////////////////////////////////////////////////////////////////////////
+
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+#/////////////////////////////////////////////////////////////////////////////
+# exvim files
+#/////////////////////////////////////////////////////////////////////////////
+
+*UnityVS.meta
+*.err
+*.err.meta
+*.exvim
+*.exvim.meta
+*.vimentry
+*.vimentry.meta
+*.vimproject
+*.vimproject.meta
+.vimfiles.*/
+.exvim.*/
+quick_gen_project_*_autogen.bat
+quick_gen_project_*_autogen.bat.meta
+quick_gen_project_*_autogen.sh
+quick_gen_project_*_autogen.sh.meta
+.exvim.app
+
+#/////////////////////////////////////////////////////////////////////////////
+# webstorm files
+#/////////////////////////////////////////////////////////////////////////////
+
+.idea/
+
+*.zip
+
+# config files
+*.conf
+
+# logrotate status file
+*.status
+ 
+# mongodb backup
+*.mongobak
+
+# vim
+#
+*.swp
+
+# OSX
+#
+.DS_Store
+__MACOSX
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+# Android/IJ
+#
+*.iml
+.idea
+.idea/*
+android/local.properties
+android/build
+android/build/*
+android/.gradle
+android/.gradle/*
+
+# iOS
+#
+ios/build
+ios/build/*
+
+# node
+#
+node_modules/
+./frontend/node_modules/
+
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore
+
+# local logs
+*.log
+*.log.*
+
+# crash log
+core
+
+# webpack
+frontend/bin
+
+# Docs
+docs
+docs/*
+
+# database data
+database/all_data*.sql
+
+# General asymmetric key files
+*.pem
+
+# Skeema
+.skeema
+latest_diff_between_live_and_expected_schema.sql
+
+# nohup.out
+*.out
+*.pcap
+
+out
+out/*
+
+*.iml
+.gradle
+*/.gradle
+*/.gradle/*
+*/gradle/*
+*/build
+*/build/*
+*/target
+*/target/*
+*.swp
+*/gradlew
+*/gradlew.bat
+*.classpath
+*.project
+*/catalina.base_IS_UNDEFINED
+*/catalina.base_IS_UNDEFINED/*
