@@ -110,6 +110,6 @@ cc.Class({
 
     gameOver: function () {
         this.player.stopAllActions(); // stop the jumping action of the player node
-        cc.director.loadScene('game');
+        cc.director.loadScene('main');
     },
 });
