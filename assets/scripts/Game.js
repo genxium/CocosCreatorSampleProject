@@ -38,7 +38,7 @@ cc.Class({
         // scoring sound effect resource
         scoreAudio: {
             default: null,
-            url: cc.AudioClip
+            type: cc.AudioClip
         },
     },
 
@@ -79,19 +79,19 @@ cc.Class({
         newStar.getComponent('Star').game = this;
 
         // reset timer, randomly choose a value according the scale of star duration
-        this.starDuration = this.minStarDuration + cc.random0To1() * (this.maxStarDuration - this.minStarDuration);
+        this.starDuration = this.minStarDuration + random0To1() * (this.maxStarDuration - this.minStarDuration);
         this.timer = 0;
     },
 
     getNewStarPosition: function () {
         var randX = 0;
         // According to the position of the ground level and the main character's jump height, randomly obtain an anchor point of the star on the y axis
-        var randY = this.groundY + cc.random0To1() * this.player.getComponent('Player').jumpHeight + 50;
+        var randY = this.groundY + random0To1() * this.player.getComponent('Player').jumpHeight + 50;
         // according to the width of the screen, randomly obtain an anchor point of star on the x axis
         var maxX = this.node.width/2;
-        randX = cc.randomMinus1To1() * maxX;
+        randX = randomMinus1To1() * maxX;
         // return to the anchor point of the star
-        return cc.p(randX, randY);
+        return cc.v2(randX, randY);
     },
 
     start () {

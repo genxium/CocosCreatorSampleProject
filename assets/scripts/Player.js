@@ -23,15 +23,15 @@ cc.Class({
         // jumping sound effect resource
         jumpAudio: {
             default: null,
-            url: cc.AudioClip
+            type: cc.AudioClip
         },
     },
 
     setJumpAction: function () {
         // jump up
-        var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
+        var jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         // jump down
-        var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
+        var jumpDown = cc.moveBy(this.jumpDuration, cc.v2(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
         // add a callback function to invoke other defined methods after the action is finished
         var callback = cc.callFunc(this.playJumpSound, this);
         // repeat unceasingly, and invoke callback to play sound after landing each time
