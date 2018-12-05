@@ -84,6 +84,7 @@ cc.Class({
     },
 
     getNewStarPosition: function () {
+        return cc.v2();
         var randX = 0;
         // According to the position of the ground level and the main character's jump height, randomly obtain an anchor point of the star on the y axis
         var randY = this.groundY + random0To1() * this.player.getComponent('Player').jumpHeight + 50;
@@ -94,22 +95,38 @@ cc.Class({
         return cc.v2(randX, randY);
     },
 
-    start () {
+    getRandomInt: function(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    },
 
+    start () {
+      const self = this;
+      const theCb = () => {
+        self.spawnNewStar();
+        const randomMillis = self.getRandomInt(100, 300);  
+        setTimeout(theCb, randomMillis); 
+      };
+      setTimeout(theCb, 0);
     },
 
     update: function (dt) {
-        // update timer for each frame, when a new star is not generated after exceeding duration
-        // invoke the logic of game failure
-        if (this.timer > this.starDuration) {
-            this.gameOver();
-            return;
-        }
-        this.timer += dt;
+      // update timer for each frame, when a new star is not generated after exceeding duration
+      // invoke the logic of game failure
+      /*
+      if (this.timer > this.starDuration) {
+          this.gameOver();
+          return;
+      }
+      */
+      this.timer += dt;
     },
 
     gameOver: function () {
+        /*
         this.player.stopAllActions(); // stop the jumping action of the player node
         cc.director.loadScene('main');
+        */
     },
 });

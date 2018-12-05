@@ -20,7 +20,6 @@
   },
   "packageName": "org.cocos2d.start_project",
   "privateKey": "",
-  "renderMode": "0",
   "startScene": "e07df245-f7c7-443d-9ee6-5b640e6bc85c",
   "title": "start_project",
   "webOrientation": "auto",
@@ -29,5 +28,18 @@
     "orientation": "portrait"
   },
   "xxteaKey": "14e2d926-8dc4-4d",
-  "zipCompressJs": true
+  "zipCompressJs": true,
+  "qqplay": {
+    "orientation": "portrait",
+    "REMOTE_SERVER_ROOT": ""
+  },
+  "fb-instant-games": {},
+  "android-instant": {
+    "REMOTE_SERVER_ROOT": "",
+    "pathPattern": "",
+    "scheme": "https",
+    "host": "",
+    "skipRecord": false,
+    "recordPath": ""
+  }
 }
