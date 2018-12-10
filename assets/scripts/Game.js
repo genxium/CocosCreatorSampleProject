@@ -1,17 +1,11 @@
-// Learn cc.Class:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/class/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
-
 cc.Class({
     extends: cc.Component,
 
     properties: {
+        coinFallPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
         // this property quotes the PreFab resource of stars
         starPrefab: {
             default: null,
@@ -68,48 +62,55 @@ cc.Class({
     },
 
     spawnNewStar: function() {
-        // generate a new node in the scene with a preset template
-        var newStar = cc.instantiate(this.starPrefab);
-        // put the newly added node under the Canvas node
-        this.node.addChild(newStar);
-        // set up a random position for the star
-        newStar.setPosition(this.getNewStarPosition());
+      // generate a new node in the scene with a preset template
+      const newStar = cc.instantiate(this.starPrefab);
+      // put the newly added node under the Canvas node
+      this.node.addChild(newStar);
+      // set up a random position for the star
+      newStar.setPosition(this.getNewStarPosition());
 
-        // deliver the concrete example of the Game component into the star component
-        newStar.getComponent('Star').game = this;
+      // deliver the concrete example of the Game component into the star component
+      newStar.getComponent('Star').game = this;
 
-        // reset timer, randomly choose a value according the scale of star duration
-        this.starDuration = this.minStarDuration + random0To1() * (this.maxStarDuration - this.minStarDuration);
-        this.timer = 0;
+      // reset timer, randomly choose a value according the scale of star duration
+      this.starDuration = this.minStarDuration + random0To1() * (this.maxStarDuration - this.minStarDuration);
+      this.timer = 0;
     },
 
     getNewStarPosition: function () {
-        var randX = 0;
-        // According to the position of the ground level and the main character's jump height, randomly obtain an anchor point of the star on the y axis
-        var randY = this.groundY + random0To1() * this.player.getComponent('Player').jumpHeight + 50;
-        // according to the width of the screen, randomly obtain an anchor point of star on the x axis
-        var maxX = this.node.width/2;
-        randX = randomMinus1To1() * maxX;
-        // return to the anchor point of the star
-        return cc.v2(randX, randY);
+      let randX = 0;
+      // According to the position of the ground level and the main character's jump height, randomly obtain an anchor point of the star on the y axis
+      const randY = this.groundY + random0To1() * this.player.getComponent('Player').jumpHeight + 50;
+      // according to the width of the screen, randomly obtain an anchor point of star on the x axis
+      const maxX = this.node.width/2;
+      randX = randomMinus1To1() * maxX;
+      // return to the anchor point of the star
+      return cc.v2(randX, randY);
     },
 
     start () {
+      const self = this;
+      setInterval(() => {
+        self.playCoinFall(cc.v2());
+      }, 2000);
+    },
 
+    onStarPicked(starNode) {
+      const self =  this;
+      self.spawnNewStar();
+      // self.playCoinFall(starNode.position);
+      self.gainScore();
+      starNode.destroy();
+    },
+
+    playCoinFall(pos) {
+      const self =  this;
+      const coinFallNode = cc.instantiate(self.coinFallPrefab);
+      coinFallNode.setPosition(pos);
+      self.node.addChild(coinFallNode);
     },
 
     update: function (dt) {
-        // update timer for each frame, when a new star is not generated after exceeding duration
-        // invoke the logic of game failure
-        if (this.timer > this.starDuration) {
-            this.gameOver();
-            return;
-        }
-        this.timer += dt;
-    },
-
-    gameOver: function () {
-        this.player.stopAllActions(); // stop the jumping action of the player node
-        cc.director.loadScene('main');
+      this.timer += dt;
     },
 });
