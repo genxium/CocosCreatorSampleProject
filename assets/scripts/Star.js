@@ -16,8 +16,8 @@ cc.Class({
         pickRadius: 0,
         // The game object
         game: {
-          default: null,
-          serializable: false
+            default: null,
+            serializable: false
         }
     },
 
@@ -27,12 +27,6 @@ cc.Class({
         // calculate the distance between two nodes according to their positions
         var dist = this.node.position.sub(playerPos).mag();
         return dist;
-    },
-
-    getRandomInt: function(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
     },
 
     onPicked: function() {
@@ -46,53 +40,23 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    getRandomArbitrary(min, max) {
-      return Math.random() * (max - min) + min;
-    },
-
-    onLoad () {
-      const maxVxMagnitude = +40.0;
-      const minVxMagnitude = maxVxMagnitude/2;
-
-      const maxVyMagnitude = +200;
-      const minVyMagnitude = 0.667*maxVyMagnitude;
-      const initialVy = this.getRandomArbitrary(minVyMagnitude, maxVyMagnitude);
-      const toggle = this.getRandomInt(0, 2);
-       
-      const initialVx = (toggle % 2 > 0 ? this.getRandomArbitrary(minVxMagnitude, maxVxMagnitude) : this.getRandomArbitrary(-maxVxMagnitude, -minVxMagnitude));   
-      this.v = cc.v2(initialVx, initialVy); 
-      this.g = cc.v2(0, -1.2*initialVy);
-      this.startedAt = null;
-      this.durationMillis = 5000;
-    },
+    // onLoad () {},
 
     start () {
-      this.startedAtMillis = Date.now();
+
     },
 
     update: function (dt) {
-      if (Date.now() - this.startedAtMillis > this.durationMillis) {
-        cc.log(`Animation finished for star!`);
-        this.node.destroy();
-        return;
-      }
-      let posDiff = this.v.mul(dt);
-      this.node.setPosition(this.node.position.add(posDiff));
+        // judge if the distance between the star and main character is shorter than the collecting distance for each frame
+        if (this.getPlayerDistance() < this.pickRadius) {
+            // invoke collecting behavior
+            this.onPicked();
+            return;
+        }
 
-      this.v = this.v.add(this.g.mul(dt));
-
-      /*
-      // judge if the distance between the star and main character is shorter than the collecting distance for each frame
-      if (this.getPlayerDistance() < this.pickRadius) {
-        // invoke collecting behavior
-        this.onPicked();
-        return;
-      }
-      */
-
-      // update the transparency of the star according to the timer in the Game script
-      var opacityRatio = 1 - this.game.timer/this.game.starDuration;
-      var minOpacity = 50;
-      this.node.opacity = minOpacity + Math.floor(opacityRatio * (255 - minOpacity));
+        // update the transparency of the star according to the timer in the Game script
+        var opacityRatio = 1 - this.game.timer/this.game.starDuration;
+        var minOpacity = 50;
+        this.node.opacity = minOpacity + Math.floor(opacityRatio * (255 - minOpacity));
     },
 });
